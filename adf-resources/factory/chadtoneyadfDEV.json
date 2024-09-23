@@ -1,0 +1,9 @@
+{
+	"name": "chadtoneyadfDEV",
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0dbdd749-4934-466b-84c9-7ec5dc5d58aa",
+		"tenantId": "e362c86f-e64a-4e58-b26a-c8bf314b1093"
+	}
+}
