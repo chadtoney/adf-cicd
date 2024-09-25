@@ -1,0 +1,578 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "FlattenHierarchy",
+							"metadata": [
+								{
+									"value": ""
+								}
+							]
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Id",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Id",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RecordType",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "RecordType",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationTime",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CreationTime",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Operation",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Operation",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OrganizationId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "OrganizationId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UserType",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "UserType",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UserKey",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "UserKey",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Workload",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Workload",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UserId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "UserId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ClientIP",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ClientIP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UserAgent",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "UserAgent",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Activity",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Activity",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ItemName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ItemName",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WorkSpaceName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "WorkSpaceName",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DatasetName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DatasetName",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ReportName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ReportName",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CapacityId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CapacityId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CapacityName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CapacityName",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WorkspaceId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "WorkspaceId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AppName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AppName",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ObjectId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ObjectId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DatasetId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DatasetId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ReportId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ReportId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IsSuccess",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "IsSuccess",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ReportType",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ReportType",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RequestId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "RequestId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ActivityId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ActivityId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AppReportId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AppReportId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DistributionMethod",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DistributionMethod",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ConsumptionMethod",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ConsumptionMethod",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TableName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "TableName",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DashboardName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DashboardName",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DashboardId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DashboardId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Datasets",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Datasets",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DataflowId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DataflowId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DataflowName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DataflowName",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DataflowRefreshScheduleType",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DataflowRefreshScheduleType",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DataflowType",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DataflowType",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EmbedTokenId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "EmbedTokenId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CustomVisualAccessTokenResourceId",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CustomVisualAccessTokenResourceId",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CustomVisualAccessTokenSiteUri",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CustomVisualAccessTokenSiteUri",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DataConnectivityMode",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DataConnectivityMode",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

@@ -1,0 +1,192 @@
+{
+	"name": "DelimitedText1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "AuditRecords2024081500.20240912.1618.csv",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Id",
+				"type": "String"
+			},
+			{
+				"name": "RecordType",
+				"type": "String"
+			},
+			{
+				"name": "CreationTime",
+				"type": "String"
+			},
+			{
+				"name": "Operation",
+				"type": "String"
+			},
+			{
+				"name": "OrganizationId",
+				"type": "String"
+			},
+			{
+				"name": "UserType",
+				"type": "String"
+			},
+			{
+				"name": "UserKey",
+				"type": "String"
+			},
+			{
+				"name": "Workload",
+				"type": "String"
+			},
+			{
+				"name": "UserId",
+				"type": "String"
+			},
+			{
+				"name": "ClientIP",
+				"type": "String"
+			},
+			{
+				"name": "UserAgent",
+				"type": "String"
+			},
+			{
+				"name": "Activity",
+				"type": "String"
+			},
+			{
+				"name": "ItemName",
+				"type": "String"
+			},
+			{
+				"name": "WorkSpaceName",
+				"type": "String"
+			},
+			{
+				"name": "DatasetName",
+				"type": "String"
+			},
+			{
+				"name": "ReportName",
+				"type": "String"
+			},
+			{
+				"name": "CapacityId",
+				"type": "String"
+			},
+			{
+				"name": "CapacityName",
+				"type": "String"
+			},
+			{
+				"name": "WorkspaceId",
+				"type": "String"
+			},
+			{
+				"name": "AppName",
+				"type": "String"
+			},
+			{
+				"name": "ObjectId",
+				"type": "String"
+			},
+			{
+				"name": "DatasetId",
+				"type": "String"
+			},
+			{
+				"name": "ReportId",
+				"type": "String"
+			},
+			{
+				"name": "IsSuccess",
+				"type": "String"
+			},
+			{
+				"name": "ReportType",
+				"type": "String"
+			},
+			{
+				"name": "RequestId",
+				"type": "String"
+			},
+			{
+				"name": "ActivityId",
+				"type": "String"
+			},
+			{
+				"name": "AppReportId",
+				"type": "String"
+			},
+			{
+				"name": "DistributionMethod",
+				"type": "String"
+			},
+			{
+				"name": "ConsumptionMethod",
+				"type": "String"
+			},
+			{
+				"name": "TableName",
+				"type": "String"
+			},
+			{
+				"name": "DashboardName",
+				"type": "String"
+			},
+			{
+				"name": "DashboardId",
+				"type": "String"
+			},
+			{
+				"name": "Datasets",
+				"type": "String"
+			},
+			{
+				"name": "DataflowId",
+				"type": "String"
+			},
+			{
+				"name": "DataflowName",
+				"type": "String"
+			},
+			{
+				"name": "DataflowRefreshScheduleType",
+				"type": "String"
+			},
+			{
+				"name": "DataflowType",
+				"type": "String"
+			},
+			{
+				"name": "EmbedTokenId",
+				"type": "String"
+			},
+			{
+				"name": "CustomVisualAccessTokenResourceId",
+				"type": "String"
+			},
+			{
+				"name": "CustomVisualAccessTokenSiteUri",
+				"type": "String"
+			},
+			{
+				"name": "DataConnectivityMode",
+				"type": "String"
+			}
+		]
+	}
+}
