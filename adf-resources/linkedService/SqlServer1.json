@@ -9,9 +9,9 @@
 			"database": "demodb",
 			"encrypt": "True",
 			"trustServerCertificate": false,
-			"authenticationType": "Windows",
-			"userName": "chadtoney@FedAIRS.onmicrosoft.com",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEZGMjc1RjYxLUJBNjgtNDY3Qi1CNzkzLUNEQThEQjZDNkJFQV9lZGVmNmUyNi02ZmQ3LTQ3MGEtOWRiMi1iNmZlMDJjMGYzMjkiDQp9"
+			"authenticationType": "SQL",
+			"userName": "CloudSA13c2721e",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEZGMjc1RjYxLUJBNjgtNDY3Qi1CNzkzLUNEQThEQjZDNkJFQV8yYTA3OTNmNi02YjM3LTQ4M2ItYjdiZS1jZTcyZjdlMjdlYWEiDQp9"
 		},
 		"connectVia": {
 			"referenceName": "AutoResolveIntegrationRuntime",
