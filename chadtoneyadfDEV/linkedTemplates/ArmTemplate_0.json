@@ -1,0 +1,923 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "chadtoneyadfDEV"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"SqlServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServer1'"
+		},
+		"SqlServer1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "tcp:demoadfcicdsqldev.database.windows.net,1433"
+		},
+		"SqlServer1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "demodb"
+		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "CloudSA13c2721e"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				},
+				"managedVirtualNetwork": {
+					"type": "ManagedVirtualNetworkReference",
+					"referenceName": "default"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('SqlServer1_properties_typeProperties_server')]",
+					"database": "[parameters('SqlServer1_properties_typeProperties_database')]",
+					"encrypt": "True",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('SqlServer1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SqlServer1_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "AuditRecords2024081500.20240912.1618.csv",
+						"container": "raw"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Id",
+						"type": "String"
+					},
+					{
+						"name": "RecordType",
+						"type": "String"
+					},
+					{
+						"name": "CreationTime",
+						"type": "String"
+					},
+					{
+						"name": "Operation",
+						"type": "String"
+					},
+					{
+						"name": "OrganizationId",
+						"type": "String"
+					},
+					{
+						"name": "UserType",
+						"type": "String"
+					},
+					{
+						"name": "UserKey",
+						"type": "String"
+					},
+					{
+						"name": "Workload",
+						"type": "String"
+					},
+					{
+						"name": "UserId",
+						"type": "String"
+					},
+					{
+						"name": "ClientIP",
+						"type": "String"
+					},
+					{
+						"name": "UserAgent",
+						"type": "String"
+					},
+					{
+						"name": "Activity",
+						"type": "String"
+					},
+					{
+						"name": "ItemName",
+						"type": "String"
+					},
+					{
+						"name": "WorkSpaceName",
+						"type": "String"
+					},
+					{
+						"name": "DatasetName",
+						"type": "String"
+					},
+					{
+						"name": "ReportName",
+						"type": "String"
+					},
+					{
+						"name": "CapacityId",
+						"type": "String"
+					},
+					{
+						"name": "CapacityName",
+						"type": "String"
+					},
+					{
+						"name": "WorkspaceId",
+						"type": "String"
+					},
+					{
+						"name": "AppName",
+						"type": "String"
+					},
+					{
+						"name": "ObjectId",
+						"type": "String"
+					},
+					{
+						"name": "DatasetId",
+						"type": "String"
+					},
+					{
+						"name": "ReportId",
+						"type": "String"
+					},
+					{
+						"name": "IsSuccess",
+						"type": "String"
+					},
+					{
+						"name": "ReportType",
+						"type": "String"
+					},
+					{
+						"name": "RequestId",
+						"type": "String"
+					},
+					{
+						"name": "ActivityId",
+						"type": "String"
+					},
+					{
+						"name": "AppReportId",
+						"type": "String"
+					},
+					{
+						"name": "DistributionMethod",
+						"type": "String"
+					},
+					{
+						"name": "ConsumptionMethod",
+						"type": "String"
+					},
+					{
+						"name": "TableName",
+						"type": "String"
+					},
+					{
+						"name": "DashboardName",
+						"type": "String"
+					},
+					{
+						"name": "DashboardId",
+						"type": "String"
+					},
+					{
+						"name": "Datasets",
+						"type": "String"
+					},
+					{
+						"name": "DataflowId",
+						"type": "String"
+					},
+					{
+						"name": "DataflowName",
+						"type": "String"
+					},
+					{
+						"name": "DataflowRefreshScheduleType",
+						"type": "String"
+					},
+					{
+						"name": "DataflowType",
+						"type": "String"
+					},
+					{
+						"name": "EmbedTokenId",
+						"type": "String"
+					},
+					{
+						"name": "CustomVisualAccessTokenResourceId",
+						"type": "String"
+					},
+					{
+						"name": "CustomVisualAccessTokenSiteUri",
+						"type": "String"
+					},
+					{
+						"name": "DataConnectivityMode",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "enhanced"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings",
+									"copyBehavior": "FlattenHierarchy"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RecordType",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "RecordType",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CreationTime",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "CreationTime",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Operation",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Operation",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "OrganizationId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "OrganizationId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UserType",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "UserType",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UserKey",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "UserKey",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Workload",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Workload",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UserId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "UserId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ClientIP",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ClientIP",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UserAgent",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "UserAgent",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Activity",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Activity",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ItemName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ItemName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "WorkSpaceName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "WorkSpaceName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DatasetName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DatasetName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ReportName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ReportName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CapacityId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "CapacityId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CapacityName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "CapacityName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "WorkspaceId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "WorkspaceId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "AppName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "AppName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ObjectId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ObjectId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DatasetId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DatasetId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ReportId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ReportId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IsSuccess",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "IsSuccess",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ReportType",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ReportType",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RequestId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "RequestId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ActivityId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ActivityId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "AppReportId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "AppReportId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DistributionMethod",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DistributionMethod",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ConsumptionMethod",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ConsumptionMethod",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TableName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "TableName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DashboardName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DashboardName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DashboardId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DashboardId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Datasets",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Datasets",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DataflowId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DataflowId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DataflowName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DataflowName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DataflowRefreshScheduleType",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DataflowRefreshScheduleType",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DataflowType",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DataflowType",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EmbedTokenId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "EmbedTokenId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CustomVisualAccessTokenResourceId",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "CustomVisualAccessTokenResourceId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CustomVisualAccessTokenSiteUri",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "CustomVisualAccessTokenSiteUri",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "DataConnectivityMode",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DataConnectivityMode",
+											"type": "String",
+											"physicalType": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DelimitedText2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
+			]
+		}
+	]
+}
